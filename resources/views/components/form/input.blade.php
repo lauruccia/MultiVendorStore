@@ -1,15 +1,11 @@
-@props(
-    ['type'=> 'text','name','value'=>'','label'=>false])
-    @if($label)
+@props(['type' => 'text', 'name', 'value' => '', 'label' => false])
+@if ($label)
     <label for="">{{ $label }}</label>
 @endif
-    <input type="{{ $type  }}" name="{{ $name }}" value="{{ old($name, $value) }}"
-    {{ $attributes->class([
-        'form-control',
-        'is-invalid'=> $errors->has($name)])
-        }}>
-    @error($name)
-        <div class="alert alert-danger">
-            {{ $message }}
-        </div>
-    @enderror
+<input type="{{ $type }}" name="{{ $name }}" value="{{ old($name, $value) }}"
+    {{ $attributes->class(['form-control', 'is-invalid' => $errors->has($name)]) }}>
+@error($name)
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
+@enderror

@@ -12,6 +12,16 @@
         <a href="{{ route('categories.create') }}" class="btn btn-sm btn-outline-primary">Add category</a>
     </div>
   <x-alert type="success"/>
+
+  <form action="{{ URL::current() }}" method="GET" class="d-flex justify-content-between mb-4">
+    <x-form.input name="name" placeholder="Search..." class="mx-2" :value="request('name')"/>
+    <select name="status" class="form-control mx-2">
+        <option value="">All</option>
+        <option value="active" @selected(request('status')=='active')>Active</option>
+        <option value="archived" @selected(request('status')=='archived')>Inactive</option>
+    </select>
+    <button type="submit" class="btn btn-gray">Filter</button>
+  </form>
     <table class="table">
         <thead>
             <tr>
@@ -19,6 +29,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Parent</th>
+                <th>Status</th>
                 <th>Created at</th>
                 <th> </th>
             </tr>
@@ -30,6 +41,7 @@
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->parent_id }}</td>
+                    <td>{{ $category->status }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td>
                         <a href="{{ route('categories.edit', $category->id) }}"
@@ -50,4 +62,5 @@
             @endforelse
         </tbody>
     </table>
+    {{ $categories->withQueryString()->links() }}
 @endsection
